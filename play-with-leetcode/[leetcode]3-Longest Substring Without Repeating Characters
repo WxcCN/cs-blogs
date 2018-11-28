@@ -1,0 +1,64 @@
+##2. Add Two Numbers
+###1)题目
+```
+Given a string, find the length of the longest substring without repeating characters.
+
+Example 1:
+
+Input: "abcabcbb"
+Output: 3
+Explanation: The answer is "abc", with the length of 3.
+Example 2:
+
+Input: "bbbbb"
+Output: 1
+Explanation: The answer is "b", with the length of 1.
+Example 3:
+
+Input: "pwwkew"
+Output: 3
+Explanation: The answer is "wke", with the length of 3.
+             Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+```
+###2）思路
+先写一个子函数，输入数组下标，母字符串，往后遍历，获得下标出最长子串长度。
+遍历母字符串，调用子函数，获得每一位长度，放入数组里。
+获取数组最大值。
+
+###3) 代码
+```
+public int lengthOfLongestSubstring(String s) {
+        if("".equals(s)||s==null){
+            return 0;
+        }
+        int[] len = new int[s.length()];
+        for (int i = 0; i < s.length(); i++) {
+            len[i]=getLongSubString(i,s);
+        }
+        int asInt = Arrays.stream(len).max().getAsInt();
+        return asInt;
+
+    }
+    private int getLongSubString(int i, String s) {
+        String sb = String.valueOf(s.charAt(i));
+
+        for (int j = i+1; j < s.length(); j++) {
+            if (sb.contains(String.valueOf(s.charAt(j)))) {
+                return j - i ;
+            }else {
+                sb += s.charAt(j);
+            }
+        }
+        return s.length()-i ;
+
+
+    }
+```
+
+###4) 结果
+时间复杂度:O(n^2)
+空间复杂度:O(n)
+耗时:326 ms
+
+###5) 调优
+####v2

@@ -1,0 +1,58 @@
+##2. Add Two Numbers
+###1)题目
+```
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example:
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+```
+###2）思路
+其实就是简单的加法。
+第一位就是各位，往上累加即可。
+
+###3) 代码
+```
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+                ListNode result = new ListNode(-1);
+        ListNode p = result;
+        ListNode a = l1;
+        ListNode b = l2;
+        int flag = 0;
+        while (a!=null || b!= null) {
+            int add1 = a == null ? 0 : a.val;
+            int add2 = b == null ? 0 : b.val;
+            int sum = add1 + add2 + flag;
+            flag = sum >= 10? 1:0;
+            int val = sum%10 ;
+            ListNode temp = new ListNode(val);
+            p.next = temp;
+            p = temp;
+            if (a != null) {
+                a = a.next;
+            }
+            if (b != null) {
+                b = b.next;
+            }
+        }
+        if (flag ==1) {
+            p.next = new ListNode(1);
+        }
+        return result.next;
+
+    }
+}
+```
+
+###4) 结果
+时间复杂度:O(n)
+空间复杂度:O(1)
+耗时:52 ms
+###5) 调优
+看了下时间少的算法，基本逻辑是一致的。 我运行了一遍 耗时和这差不多。
+官网可能由于啥偶然因素导致他的代码毕竟快吧。
